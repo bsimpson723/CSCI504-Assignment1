@@ -1,0 +1,17 @@
+C:\Users\bsimpson\source\repos\Simpson_Assign1\Simpson_Assign1\bin\Debug\Simpson_Assign1.exe.config
+C:\Users\bsimpson\source\repos\Simpson_Assign1\Simpson_Assign1\bin\Debug\Simpson_Assign1.exe
+C:\Users\bsimpson\source\repos\Simpson_Assign1\Simpson_Assign1\bin\Debug\Simpson_Assign1.pdb
+C:\Users\bsimpson\source\repos\Simpson_Assign1\Simpson_Assign1\obj\Debug\Simpson_Assign1.csprojResolveAssemblyReference.cache
+C:\Users\bsimpson\source\repos\Simpson_Assign1\Simpson_Assign1\obj\Debug\Simpson_Assign1.csproj.CoreCompileInputs.cache
+C:\Users\bsimpson\source\repos\Simpson_Assign1\Simpson_Assign1\obj\Debug\Simpson_Assign1.exe
+C:\Users\bsimpson\source\repos\Simpson_Assign1\Simpson_Assign1\obj\Debug\Simpson_Assign1.pdb
+C:\Users\bsimpson\source\repos\Simpson_Assign1\Simpson_Assign1\bin\Debug\Input.txt
+C:\Homework\CSCI 504\Simpson_Assign1\Simpson_Assign1\bin\Debug\Simpson_Assign1.exe.config
+C:\Homework\CSCI 504\Simpson_Assign1\Simpson_Assign1\bin\Debug\Simpson_Assign1.exe
+C:\Homework\CSCI 504\Simpson_Assign1\Simpson_Assign1\bin\Debug\Simpson_Assign1.pdb
+C:\Homework\CSCI 504\Simpson_Assign1\Simpson_Assign1\obj\Debug\Simpson_Assign1.csprojResolveAssemblyReference.cache
+C:\Homework\CSCI 504\Simpson_Assign1\Simpson_Assign1\obj\Debug\Simpson_Assign1.csproj.CoreCompileInputs.cache
+C:\Homework\CSCI 504\Simpson_Assign1\Simpson_Assign1\obj\Debug\Simpson_Assign1.exe
+C:\Homework\CSCI 504\Simpson_Assign1\Simpson_Assign1\obj\Debug\Simpson_Assign1.pdb
+C:\Homework\CSCI 504\Simpson_Assign1\Simpson_Assign1\bin\Debug\Courses.txt
+C:\Homework\CSCI 504\Simpson_Assign1\Simpson_Assign1\bin\Debug\Students.txt
