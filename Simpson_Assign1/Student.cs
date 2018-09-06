@@ -78,5 +78,10 @@ namespace Simpson_Assign1
             this.CreditHours -= course.CreditHours;
             return 0;
         }
+
+        public override string ToString()
+        {
+            return string.Format("z{0} -- {1}, {2} [{3}] ({4}) |{5}|", ZId, LastName, FirstName, Year, Major, Gpa);
+        }
     }
 }
