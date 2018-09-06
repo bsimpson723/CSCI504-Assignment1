@@ -40,27 +40,42 @@ namespace Simpson_Assign1
             CreditHours = 0;
         }
 
-        public int Enroll(Course newCourse)
+        public int Enroll(Course course)
         {
             //Check conditions and return error code if any are true
-            if (newCourse.EnrolledStudents.Contains(this.ZId))
+            if (course.EnrolledStudents.Contains(this.ZId))
             {
                 return 10;
             }
-            if (newCourse.EnrolledCount >= newCourse.MaximumCapacity)
+            if (course.EnrolledCount >= course.MaximumCapacity)
             {
                 return 5;
             }
 
-            if (this.CreditHours + newCourse.CreditHours >= 18)
+            if (this.CreditHours + course.CreditHours >= 18)
             {
                 return 15;
             }
 
             //If it makes it this far without returning, operate on the appropriate properties and return 0
-            newCourse.EnrolledCount += 1;
-            newCourse.EnrolledStudents.Add(this.ZId);
-            this.CreditHours += newCourse.CreditHours;
+            course.EnrolledCount += 1;
+            course.EnrolledStudents.Add(this.ZId);
+            this.CreditHours += course.CreditHours;
+            return 0;
+        }
+
+        public int Drop(Course course)
+        {
+            //if the student isn't enrolled in the course return error code 20
+            if (!course.EnrolledStudents.Contains(this.ZId))
+            {
+                return 20;
+            }
+
+            //if the student IS enrolled in the class, operate on the appropriate properties and return 0
+            course.EnrolledCount -= 1;
+            course.EnrolledStudents.Remove(this.ZId);
+            this.CreditHours -= course.CreditHours;
             return 0;
         }
     }
