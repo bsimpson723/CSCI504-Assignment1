@@ -39,5 +39,29 @@ namespace Simpson_Assign1
             Gpa = gpa;
             CreditHours = 0;
         }
+
+        public int Enroll(Course newCourse)
+        {
+            //Check conditions and return error code if any are true
+            if (newCourse.EnrolledStudents.Contains(this.ZId))
+            {
+                return 10;
+            }
+            if (newCourse.EnrolledCount >= newCourse.MaximumCapacity)
+            {
+                return 5;
+            }
+
+            if (this.CreditHours + newCourse.CreditHours >= 18)
+            {
+                return 15;
+            }
+
+            //If it makes it this far without returning, operate on the appropriate properties and return 0
+            newCourse.EnrolledCount += 1;
+            newCourse.EnrolledStudents.Add(this.ZId);
+            this.CreditHours += newCourse.CreditHours;
+            return 0;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Simpson_Assign1
         public uint? CourseNumber { get; set; }
         public string SectionNumber { get; set; }
         public ushort? CreditHours { get; set; }
-        public List<int> EnrolledStudents { get; set; }
+        public List<uint> EnrolledStudents { get; set; }
         public ushort? EnrolledCount { get; set; }
         public ushort? MaximumCapacity { get; set; }
 
@@ -22,7 +22,7 @@ namespace Simpson_Assign1
             CourseNumber = null;
             SectionNumber = string.Empty;
             CreditHours = null;
-            EnrolledStudents = new List<int>();
+            EnrolledStudents = new List<uint>();
             EnrolledCount = null;
             MaximumCapacity = null;
         }
