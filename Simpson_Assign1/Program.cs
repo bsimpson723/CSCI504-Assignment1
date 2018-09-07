@@ -16,11 +16,16 @@ namespace Simpson_Assign1
             Students = InitializeStudents();
             Courses = InitializeCourses();
 
-            do
+            foreach (var course in Courses)
             {
-                PrintMenu();
+                Console.WriteLine(course.ToString());
             }
-            while (Console.ReadLine() != "8");
+
+            //do
+            //{
+            //    PrintMenu();
+            //}
+            //while (Console.ReadLine() != "8");
         }
 
         private static List<Student> InitializeStudents()

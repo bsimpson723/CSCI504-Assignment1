@@ -35,5 +35,10 @@ namespace Simpson_Assign1
             CreditHours = hours;
             MaximumCapacity = capacity;
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0} {1}-{2} ({3}/{4}", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity);
+        }
     }
 }
