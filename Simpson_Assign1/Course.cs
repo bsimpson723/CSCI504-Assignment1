@@ -13,7 +13,7 @@ namespace Simpson_Assign1
         public string SectionNumber { get; set; }
         public ushort? CreditHours { get; set; }
         public List<uint> EnrolledStudents { get; set; }
-        public ushort? EnrolledCount { get; set; }
+        public ushort? EnrolledCount => Convert.ToUInt16(EnrolledStudents.Count());
         public ushort? MaximumCapacity { get; set; }
 
         public Course()
@@ -23,7 +23,6 @@ namespace Simpson_Assign1
             SectionNumber = string.Empty;
             CreditHours = null;
             EnrolledStudents = new List<uint>();
-            EnrolledCount = null;
             MaximumCapacity = null;
         }
 
@@ -33,7 +32,13 @@ namespace Simpson_Assign1
             CourseNumber = courseNum;
             SectionNumber = sectNumber;
             CreditHours = hours;
+            EnrolledStudents = new List<uint>();
             MaximumCapacity = capacity;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity);
         }
     }
 }

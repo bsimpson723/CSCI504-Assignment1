@@ -58,7 +58,6 @@ namespace Simpson_Assign1
             }
 
             //If it makes it this far without returning, operate on the appropriate properties and return 0
-            course.EnrolledCount += 1;
             course.EnrolledStudents.Add(this.ZId);
             this.CreditHours += course.CreditHours;
             return 0;
@@ -73,7 +72,6 @@ namespace Simpson_Assign1
             }
 
             //if the student IS enrolled in the class, operate on the appropriate properties and return 0
-            course.EnrolledCount -= 1;
             course.EnrolledStudents.Remove(this.ZId);
             this.CreditHours -= course.CreditHours;
             return 0;
