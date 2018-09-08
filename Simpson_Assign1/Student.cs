@@ -10,13 +10,47 @@ namespace Simpson_Assign1
     public enum AcademicYear { Freshman, Sophomore, Junior, Senior, PostBacc }
     public class Student
     {
-        public uint ZId { get; }
+        private float? gpa;
+        private ushort? creditHours;
+
+        //using auto-properties for all properties that don't require custom logic
+        public uint ZId { get; }    //get only so that this field can only be set once via the constructor
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Major{ get; set; }
         public AcademicYear? Year { get; set; }
-        public float? Gpa { get; set; }
-        public ushort? CreditHours { get; set; }
+
+        //custom GPA property only allows set if value is between 0 and 4
+        public float? Gpa
+        {
+            get
+            {
+                return gpa;
+            }
+            set
+            {
+                if (value >= 0 && value <= 4)
+                {
+                    gpa = value;
+                }
+            }
+        }
+
+        //custom CreditHours property only allows set if value is between 0 and 18
+        public ushort? CreditHours
+        {
+            get
+            {
+                return creditHours;
+            }
+            set
+            {
+                if (value >= 0 && value <= 18)
+                {
+                    creditHours = value;
+                }
+            }
+        }
 
         public Student()
         {
