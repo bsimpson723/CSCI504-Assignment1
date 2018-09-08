@@ -28,12 +28,12 @@ namespace Simpson_Assign1
             CreditHours = null;
         }
 
-        public Student(uint zid, string firstName, string lastName,
+        public Student(uint zid, string lastName, string firstName,
             string major, int year, float gpa)
         {
             ZId = zid;
-            FirstName = firstName;
             LastName = lastName;
+            FirstName = firstName;
             Major = major;
             Year = (AcademicYear)year;
             Gpa = gpa;
