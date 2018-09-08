@@ -8,10 +8,72 @@ namespace Simpson_Assign1
 {
     public class Course
     {
-        public string DepartmentCode { get; set; }
-        public uint? CourseNumber { get; set; }
-        public string SectionNumber { get; set; }
-        public ushort? CreditHours { get; set; }
+        private string departmentCode;
+        private uint? courseNumber;
+        private string sectionNumber;
+        private ushort? creditHours;
+
+        public string DepartmentCode
+        {
+            get
+            {
+                return departmentCode;
+            }
+            set
+            {
+                if (value.Length <= 4 && value.Length > 0)
+                {
+                    departmentCode = value.ToUpper();
+                }
+            }
+        }
+
+        public uint? CourseNumber
+        {
+            get
+            {
+                return courseNumber;
+            }
+            set
+            {
+                if (value >= 100 && value <= 499)
+                {
+                    courseNumber = value;
+                }
+            }
+        }
+
+        public string SectionNumber
+        {
+            get
+            {
+                return sectionNumber;
+            }
+            set
+            {
+                if (value.Length == 4)
+                {
+                    sectionNumber = value;
+                }
+            }
+        }
+
+        public ushort? CreditHours
+        {
+            get
+            {
+                return creditHours;
+            }
+            set
+            {
+                if (value <= 0 && value <= 6)
+                {
+                    creditHours = value;
+                }
+            }
+        }
+
+        //using auto-properties for all properties that don't require custom logic
         public List<uint> EnrolledStudents { get; set; }
         public ushort? EnrolledCount => Convert.ToUInt16(EnrolledStudents.Count());
         public ushort? MaximumCapacity { get; set; }
