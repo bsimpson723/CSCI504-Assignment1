@@ -36,6 +36,26 @@ namespace Simpson_Assign1
             MaximumCapacity = capacity;
         }
 
+        public void PrintRoster(List<Student> students)
+        {
+            Console.WriteLine(string.Format("Course: {0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity));
+            Console.WriteLine("-------------------------------------------------------------------");
+            if (!EnrolledStudents.Any())
+            {
+                Console.WriteLine("There are no students currently enrolled in this course.");
+            }
+            else
+            {
+                foreach (var student in students)
+                {
+                    if (EnrolledStudents.Contains(student.ZId))
+                    {
+                        Console.WriteLine(string.Format("{0} {1} {2} {3}", student.ZId, student.LastName, student.FirstName, student.Major));
+                    }
+                }
+            }
+        }
+
         public override string ToString()
         {
             return string.Format("{0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity);
