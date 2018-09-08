@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * CSCI 504: Programming principles in .NET
+ * Assignment 1
+ * Benjamin Simpson - Z100820
+ * Xueqiong Li - z1785226
+*/
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -20,7 +26,7 @@ namespace Simpson_Assign1
         public string Major{ get; set; }
         public AcademicYear? Year { get; set; }
 
-        //custom GPA property only allows set if value is between 0 and 4
+        //properties with custom validation defined below
         public float? Gpa
         {
             get
@@ -36,7 +42,6 @@ namespace Simpson_Assign1
             }
         }
 
-        //custom CreditHours property only allows set if value is between 0 and 18
         public ushort? CreditHours
         {
             get
