@@ -85,8 +85,8 @@ namespace Simpson_Assign1
                         Console.WriteLine("Which course roster would you like printed?");
                         Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
                         string crs = Console.ReadLine();
-                        string[] words = crs.Split(" ");
-                        string[] words2 = words[1].Split("-");
+                        string[] words = crs.Split(' ');
+                        string[] words2 = words[1].Split('-');
                         List<Course> foundCourse = Courses.FindAll(x => x.DepartmentCode  == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) && x.SectionNumber == words2[1]);
                         List<Student> roster= new List<Student>();
                         foreach (uint studentId in foundCourse[0].EnrolledStudents)
@@ -108,8 +108,8 @@ namespace Simpson_Assign1
                         Console.WriteLine("Which course will this student be enrolled into?");
                         Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
                         string enrollcrs = Console.ReadLine();
-                        string[] words3 = enrollcrs.Split(" ");
-                        string[] words4 = words3[1].Split("-");
+                        string[] words3 = enrollcrs.Split(' ');
+                        string[] words4 = words3[1].Split('-');
                         List<Course> foundCourse2 = Courses.FindAll(x => x.DepartmentCode == words3[0] && x.CourseNumber == Convert.ToUInt64(words4[0]) && x.SectionNumber == words4[1]);
                         List<Student> foundStudent4 = Students.FindAll(x => x.ZId == Convert.ToUInt64(zid));
                         int success = foundStudent4[0].Enroll(foundCourse2[0]);
@@ -125,8 +125,8 @@ namespace Simpson_Assign1
                         Console.WriteLine("Which course will this student be dropped from?");
                         Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
                         string dropcrs = Console.ReadLine();
-                        string[] words5 = dropcrs.Split(" ");
-                        string[] words6 = words5[1].Split("-");
+                        string[] words5 = dropcrs.Split(' ');
+                        string[] words6 = words5[1].Split('-');
                         List<Course> foundCourse3 = Courses.FindAll(x => x.DepartmentCode == words5[0] && x.CourseNumber == Convert.ToUInt64(words6[0]) && x.SectionNumber == words6[1]);
                         List<Student> foundStudent5 = Students.FindAll(x => x.ZId == Convert.ToUInt64(zid2));
                         int success2 = foundStudent5[0].Drop(foundCourse3[0]);
