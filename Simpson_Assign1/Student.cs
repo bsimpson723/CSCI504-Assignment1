@@ -65,12 +65,18 @@ namespace Simpson_Assign1
         public Student(uint zid, string lastName, string firstName,
             string major, int year, float gpa)
         {
-            ZId = zid;
+            if (zid >= 1000000)
+            {
+                ZId = zid;
+            }
             LastName = lastName;
             FirstName = firstName;
             Major = major;
             Year = (AcademicYear)year;
-            Gpa = gpa;
+            if (gpa >= 0 && gpa <= 4.00)
+            {
+                Gpa = gpa;
+            }
             CreditHours = 0;
         }
 
