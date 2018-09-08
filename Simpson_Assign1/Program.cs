@@ -88,15 +88,14 @@ namespace Simpson_Assign1
                         string[] words = crs.Split(" ");
                         string[] words2 = words[1].Split("-");
                         List<Course> foundCourse = Courses.FindAll(x => x.DepartmentCode  == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) && x.SectionNumber == words2[1]);
-                        Console.Write("\nCourse: {0}", foundCourse[0].ToString());
-                        Console.WriteLine("\n------------------------------------------------------");
+                        List<Student> roster= new List<Student>();
                         foreach (uint studentId in foundCourse[0].EnrolledStudents)
                         {
                             List<Student> foundStudent3 = Students.FindAll(x => x.ZId == studentId);
-                            string name = foundStudent3[0].LastName + foundStudent3[0].FirstName;
-                            Console.WriteLine(String.Format("{0, -15}{1,-20}{2}", foundStudent3[0].ZId, name, foundStudent3[0].Major));
+                            roster.Add(foundStudent3[0]);
                             count++;
                         }
+                        foundCourse[0].PrintRoster(roster);
                         if (count == 0)
                         {
                             Console.WriteLine("There isn't anyone enrolled into {0}.", crs);
