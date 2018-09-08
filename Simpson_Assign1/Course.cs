@@ -90,10 +90,26 @@ namespace Simpson_Assign1
 
         public Course(string deptCode, uint courseNum, string sectNumber, ushort hours, ushort capacity)
         {
-            DepartmentCode = deptCode;
-            CourseNumber = courseNum;
-            SectionNumber = sectNumber;
-            CreditHours = hours;
+            if (deptCode.Length <= 4 && deptCode.Length > 0)
+            {
+                DepartmentCode = deptCode.ToUpper();
+            }
+
+            if (courseNum >= 100 && courseNum <= 499)
+            {
+                CourseNumber = courseNum;
+            }
+
+            if (sectNumber.Length == 4)
+            {
+                SectionNumber = sectNumber;
+            }
+
+            if (hours >= 0 && hours <= 6)
+            {
+                CreditHours = hours;
+            }
+
             EnrolledStudents = new List<uint>();
             MaximumCapacity = capacity;
         }
