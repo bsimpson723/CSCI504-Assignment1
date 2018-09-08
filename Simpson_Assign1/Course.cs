@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * CSCI 504: Programming principles in .NET
+ * Assignment 1
+ * Benjamin Simpson - Z100820
+ * Xueqiong Li - z1785226
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +14,7 @@ namespace Simpson_Assign1
 {
     public class Course
     {
+        #region Properties
         private string departmentCode;
         private uint? courseNumber;
         private string sectionNumber;
@@ -77,7 +84,9 @@ namespace Simpson_Assign1
         public List<uint> EnrolledStudents { get; set; }
         public ushort? EnrolledCount => Convert.ToUInt16(EnrolledStudents.Count());
         public ushort? MaximumCapacity { get; set; }
+        #endregion
 
+        #region Constructors
         public Course()
         {
             DepartmentCode = string.Empty;
@@ -113,7 +122,9 @@ namespace Simpson_Assign1
             EnrolledStudents = new List<uint>();
             MaximumCapacity = capacity;
         }
+        #endregion
 
+        #region Methods
         public void PrintRoster(List<Student> students)
         {
             Console.WriteLine(string.Format("Course: {0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity));
@@ -138,5 +149,6 @@ namespace Simpson_Assign1
         {
             return string.Format("{0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity);
         }
+        #endregion
     }
 }

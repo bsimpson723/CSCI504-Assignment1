@@ -16,6 +16,7 @@ namespace Simpson_Assign1
     public enum AcademicYear { Freshman, Sophomore, Junior, Senior, PostBacc }
     public class Student
     {
+        #region Properties
         private float? gpa;
         private ushort? creditHours;
 
@@ -56,7 +57,9 @@ namespace Simpson_Assign1
                 }
             }
         }
+        #endregion
 
+        #region Constructors
         public Student()
         {
             FirstName = string.Empty;
@@ -84,7 +87,9 @@ namespace Simpson_Assign1
             }
             CreditHours = 0;
         }
+        #endregion
 
+        #region Methods
         public int Enroll(Course course)
         {
             //Check conditions and return error code if any are true
@@ -126,5 +131,6 @@ namespace Simpson_Assign1
         {
             return string.Format("z{0} -- {1}, {2} [{3}] ({4}) |{5}|", ZId, LastName, FirstName, Year, Major, Gpa);
         }
+        #endregion
     }
 }
