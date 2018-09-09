@@ -44,7 +44,7 @@ namespace Simpson_Assign1
                         {
                             Console.WriteLine(eachStudent.ToString());
                         }
-                        if (foundStudent.Capacity == 0)
+                        if (foundStudent.Count == 0)
                         {
                             Console.WriteLine("There doesn't appear to be any students majoring in '{0}'.", major);
                         }
@@ -63,7 +63,7 @@ namespace Simpson_Assign1
                         {
                             Console.WriteLine(eachStudent.ToString());
                         }
-                        if (foundStudent2.Capacity == 0)
+                        if (foundStudent2.Count == 0)
                         {
                             Console.WriteLine("There doesn't appear to be any students in '{0}'.", year);
                         }
@@ -111,8 +111,8 @@ namespace Simpson_Assign1
                         Console.WriteLine("Which course will this student be dropped from?");
                         Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
                         string dropcrs = Console.ReadLine();
-                        string[] words5 = dropcrs.Split(" ");
-                        string[] words6 = words5[1].Split("-");
+                        string[] words5 = dropcrs.Split(' ');
+                        string[] words6 = words5[1].Split('-');
                         Course foundCourse3 = Courses.Find(x => x.DepartmentCode == words5[0] && x.CourseNumber == Convert.ToUInt64(words6[0]) && x.SectionNumber == words6[1]);
                         Student foundStudent5 = Students.Find(x => x.ZId == Convert.ToUInt64(zid2));
                         int success2 = foundStudent5.Drop(foundCourse3);
@@ -126,7 +126,7 @@ namespace Simpson_Assign1
                         break;
                 }
             }
-            while (input != "8" && input.ToUpper() != "H" && input.ToUpper() != "Q" && input.ToUpper() != "QUIT" && input.ToUpper( != "EXIT");
+            while (input != "8" && input.ToUpper() != "H" && input.ToUpper() != "Q" && input.ToUpper() != "QUIT" && input.ToUpper() != "EXIT");
         }
 
         private static List<Student> InitializeStudents()
