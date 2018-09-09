@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * CSCI 504: Programming principles in .NET
+ * Assignment 1
+ * Benjamin Simpson - Z100820
+ * Xueqiong Li - z1785226
+*/
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
