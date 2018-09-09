@@ -23,7 +23,6 @@ namespace Simpson_Assign1
                 PrintMenu();
                 input = Console.ReadLine();
 
-                int count = 0;
                 switch (input)
                 {
                     case ("1"):
@@ -44,9 +43,8 @@ namespace Simpson_Assign1
                         foreach (Student eachStudent in foundStudent)
                         {
                             Console.WriteLine(eachStudent.ToString());
-                            count++;
                         }
-                        if (count == 0)
+                        if (foundStudent.Capacity == 0)
                         {
                             Console.WriteLine("There doesn't appear to be any students majoring in '{0}'.", major);
                         }
@@ -64,9 +62,8 @@ namespace Simpson_Assign1
                         foreach (Student eachStudent in foundStudent2)
                         {
                             Console.WriteLine(eachStudent.ToString());
-                            count++;
                         }
-                        if (count == 0)
+                        if (foundStudent2.Capacity == 0)
                         {
                             Console.WriteLine("There doesn't appear to be any students in '{0}'.", year);
                         }
@@ -87,19 +84,8 @@ namespace Simpson_Assign1
                         string crs = Console.ReadLine();
                         string[] words = crs.Split(' ');
                         string[] words2 = words[1].Split('-');
-                        List<Course> foundCourse = Courses.FindAll(x => x.DepartmentCode  == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) && x.SectionNumber == words2[1]);
-                        List<Student> roster= new List<Student>();
-                        foreach (uint studentId in foundCourse[0].EnrolledStudents)
-                        {
-                            List<Student> foundStudent3 = Students.FindAll(x => x.ZId == studentId);
-                            roster.Add(foundStudent3[0]);
-                            count++;
-                        }
-                        foundCourse[0].PrintRoster(roster);
-                        if (count == 0)
-                        {
-                            Console.WriteLine("There isn't anyone enrolled into {0}.", crs);
-                        }
+                        Course foundCourse = Courses.Find(x => x.DepartmentCode  == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) && x.SectionNumber == words2[1]);
+                        foundCourse.PrintRoster(Students);
                         Console.WriteLine("");
                         break;
                     case ("6"):
@@ -110,9 +96,9 @@ namespace Simpson_Assign1
                         string enrollcrs = Console.ReadLine();
                         string[] words3 = enrollcrs.Split(' ');
                         string[] words4 = words3[1].Split('-');
-                        List<Course> foundCourse2 = Courses.FindAll(x => x.DepartmentCode == words3[0] && x.CourseNumber == Convert.ToUInt64(words4[0]) && x.SectionNumber == words4[1]);
-                        List<Student> foundStudent4 = Students.FindAll(x => x.ZId == Convert.ToUInt64(zid));
-                        int success = foundStudent4[0].Enroll(foundCourse2[0]);
+                        Course foundCourse2 = Courses.Find(x => x.DepartmentCode == words3[0] && x.CourseNumber == Convert.ToUInt64(words4[0]) && x.SectionNumber == words4[1]);
+                        Student foundStudent4 = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
+                        int success = foundStudent4.Enroll(foundCourse2);
                         if(success == 0)
                         {
                             Console.WriteLine("\nz{0} has successfully enrolled into {1}.", zid, enrollcrs);
@@ -125,11 +111,11 @@ namespace Simpson_Assign1
                         Console.WriteLine("Which course will this student be dropped from?");
                         Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
                         string dropcrs = Console.ReadLine();
-                        string[] words5 = dropcrs.Split(' ');
-                        string[] words6 = words5[1].Split('-');
-                        List<Course> foundCourse3 = Courses.FindAll(x => x.DepartmentCode == words5[0] && x.CourseNumber == Convert.ToUInt64(words6[0]) && x.SectionNumber == words6[1]);
-                        List<Student> foundStudent5 = Students.FindAll(x => x.ZId == Convert.ToUInt64(zid2));
-                        int success2 = foundStudent5[0].Drop(foundCourse3[0]);
+                        string[] words5 = dropcrs.Split(" ");
+                        string[] words6 = words5[1].Split("-");
+                        Course foundCourse3 = Courses.Find(x => x.DepartmentCode == words5[0] && x.CourseNumber == Convert.ToUInt64(words6[0]) && x.SectionNumber == words6[1]);
+                        Student foundStudent5 = Students.Find(x => x.ZId == Convert.ToUInt64(zid2));
+                        int success2 = foundStudent5.Drop(foundCourse3);
                         if (success2 == 0)
                         {
                             Console.WriteLine("\nz{0} has successfully dropped from {1}.", zid2, dropcrs);
@@ -140,7 +126,7 @@ namespace Simpson_Assign1
                         break;
                 }
             }
-            while (input != "8" && input != "h" && input != "q" && input != "Q" && input != "quit" && input != "Quit" && input != "exit" && input != "Exit");
+            while (input != "8" && input.ToUpper() != "H" && input.ToUpper() != "Q" && input.ToUpper() != "QUIT" && input.ToUpper( != "EXIT");
         }
 
         private static List<Student> InitializeStudents()
