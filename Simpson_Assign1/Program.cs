@@ -32,177 +32,25 @@ namespace Simpson_Assign1
                 switch (input)
                 {
                     case ("1"):
-                        Console.WriteLine("\nStudent List <All Students>:");
-                        Console.WriteLine("------------------------------------------------------");
-                        foreach (Student eachStudent in Students)
-                        {
-                            Console.WriteLine(eachStudent.ToString());
-                        }
-                        Console.WriteLine("");
+                        PrintAllStudents();
                         break;
                     case ("2"):
-                        Console.Write("Which major list would you like printed? ");
-                        string major = Console.ReadLine();
-                        Console.Write("\nStudent List <{0} Majors>", major);
-                        Console.WriteLine("\n------------------------------------------------------");
-                        // looking for students in the major
-                        List<Student> foundStudent = Students.FindAll(x => x.Major == major);
-                        foreach (Student eachStudent in foundStudent)
-                        {
-                            Console.WriteLine(eachStudent.ToString());
-                        }
-                        // if not found, print warning message
-                        if (foundStudent.Count == 0)
-                        {
-                            Console.WriteLine("There doesn't appear to be any students majoring in '{0}'.", major);
-                        }
-                        Console.WriteLine("");
+                        PrintStudentByMajor();
                         break;
                     case ("3"):
-                        Console.WriteLine("Which academic year would you like printed?");
-                        Console.Write("<Freshman, Sophomore, Junior, Senior, PostBacc> ");
-                        string year = Console.ReadLine();
-                        // print error if user input is not a type of academic year
-                        if (!Enum.IsDefined(typeof(AcademicYear), year))
-                        {
-                            Console.WriteLine("'{0}' is not an acamedic year.", year);
-                        } else
-                        {
-                            Console.Write("\nStudent List <{0} Majors>", year);
-                            Console.WriteLine("\n------------------------------------------------------");
-                            AcademicYear year2;
-                            // transfer academic year input to string and find in students list
-                            Enum.TryParse(year, out year2);
-                            List<Student> foundStudent2 = Students.FindAll(x => x.Year == year2);
-                            foreach (Student eachStudent in foundStudent2)
-                            {
-                                Console.WriteLine(eachStudent.ToString());
-                            }
-                            if (foundStudent2.Count == 0)
-                            {
-                                Console.WriteLine("There doesn't appear to be any students in '{0}' year.", year);
-                            }
-                        }
-                        Console.WriteLine("");
+                        PrintStudentByYear();
                         break;
                     case ("4"):
-                        Console.WriteLine("\nCourse List <All Courses>:");
-                        Console.WriteLine("------------------------------------------------------");
-                        foreach (Course eachCourse in Courses)
-                        {
-                            Console.WriteLine(eachCourse.ToString());
-                        }
-                        Console.WriteLine("");
+                        PrintAllCourses();
                         break;
                     case ("5"):
-                        Console.WriteLine("Which course roster would you like printed?");
-                        Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
-                        string crs = Console.ReadLine();
-                        Course foundCourse = null;
-                        // print error if the input is not in the required format
-                        try
-                        {
-                            // split input and looking for matching course
-                            string[] words = crs.Split(' ');
-                            string[] words2 = words[1].Split('-');
-                            foundCourse = Courses.Find(x => x.DepartmentCode == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) && x.SectionNumber == words2[1]);
-                        } catch (Exception)
-                        {
-                            Console.WriteLine("'{0}' doesn't follow required format.", crs);
-                            continue;
-                        }
-                        // if course not found, print error
-                        if (foundCourse != null)
-                        {
-                            foundCourse.PrintRoster(Students);
-                        } else 
-                        {
-                            Console.WriteLine("'{0}' does not exist.", crs);
-                        }
-                        Console.WriteLine("");
+                        PrintCourseRoster();
                         break;
                     case ("6"):
-                        Console.Write("Please enter the Z-ID <omitting the Z character> of the student you would like to enroll into a course.");
-                        string zid = Console.ReadLine();
-                        Student foundStudent4 = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
-                        // if student not found, print error
-                        if(foundStudent4 == null)
-                        {
-                            Console.WriteLine("Student {0} not exist.", zid);
-                            continue;
-                        }
-                        Console.WriteLine("Which course will this student be enrolled into?");
-                        Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
-                        string enrollcrs = Console.ReadLine();
-                        Course foundCourse2 = null;
-                        // checking whether input is in required format
-                        try
-                        {
-                            // split input and find course matches requirement
-                            string[] words3 = enrollcrs.Split(' ');
-                            string[] words4 = words3[1].Split('-');
-                            foundCourse2 = Courses.Find(x => x.DepartmentCode == words3[0] && x.CourseNumber == Convert.ToUInt64(words4[0]) && x.SectionNumber == words4[1]);
-                        } catch (Exception)
-                        {
-                            Console.WriteLine("'{0}' doesn't follow required format.", enrollcrs);
-                            continue;
-                        }
-                        // error if not found course
-                        if (foundCourse2 == null)
-                        {
-                            Console.WriteLine("Course {0} not exist.", enrollcrs);
-                        }
-                        else
-                        {
-                            // check enrollment whether succeed or not
-                            int success = foundStudent4.Enroll(foundCourse2);
-                            if (success == 0)
-                            {
-                                Console.WriteLine("\nz{0} has successfully enrolled into {1}.", zid, enrollcrs);
-                            }
-                        }
-                        Console.WriteLine("");
+                        EnrollStudent();
                         break;
                     case ("7"):
-                        Console.Write("Please enter the Z-ID <omitting the Z character> of the student you like to drop from a course.");
-                        string zid2 = Console.ReadLine();
-                        Student foundStudent5 = Students.Find(x => x.ZId == Convert.ToUInt64(zid2));
-                        // print error if student not found
-                        if (foundStudent5 == null)
-                        {
-                            Console.WriteLine("Student {0} not exist.", zid2);
-                            continue;
-                        }
-                        Console.WriteLine("Which course will this student be dropped from?");
-                        Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
-                        string dropcrs = Console.ReadLine();
-                        Course foundCourse3 = null;
-                        // print error if input is not formatted
-                        try
-                        {
-                            string[] words5 = dropcrs.Split(' ');
-                            string[] words6 = words5[1].Split('-');
-                            foundCourse3 = Courses.Find(x => x.DepartmentCode == words5[0] && x.CourseNumber == Convert.ToUInt64(words6[0]) && x.SectionNumber == words6[1]);
-                        } catch (Exception)
-                        {
-                            Console.WriteLine("'{0}' doesn't follow required format.", dropcrs);
-                            continue;
-                        }
-                        // check whether found the course
-                        if (foundCourse3 == null)
-                        {
-                            Console.WriteLine("Course {0} not exist.", dropcrs);
-                        }
-                        else
-                        {
-                            // check if succeed in dropping class
-                            int success2 = foundStudent5.Drop(foundCourse3);
-                            if (success2 == 0)
-                            {
-                                Console.WriteLine("\nz{0} has successfully dropped from {1}.", zid2, dropcrs);
-                            }
-                        }
-                        Console.WriteLine("");
+                        DropCourse();
                         break;
                     default:
                         break;
@@ -211,6 +59,9 @@ namespace Simpson_Assign1
             while (input != "8" && input.ToUpper() != "H" && input.ToUpper() != "Q" && input.ToUpper() != "QUIT" && input.ToUpper() != "EXIT");
         }
 
+        #region PrivateMethods
+
+        #region InitializeStudents
         private static List<Student> InitializeStudents()
         {
             var students = new List<Student>();
@@ -231,7 +82,9 @@ namespace Simpson_Assign1
 
             return students;
         }
+        #endregion
 
+        #region InitializeCourses
         private static List<Course> InitializeCourses()
         {
             var courses = new List<Course>();
@@ -252,7 +105,9 @@ namespace Simpson_Assign1
 
             return courses;
         }
+        #endregion
 
+        #region PrintMenu
         private static void PrintMenu()
         {
             Console.WriteLine("1. Print Student List (All)");
@@ -264,5 +119,217 @@ namespace Simpson_Assign1
             Console.WriteLine("7. Drop Student");
             Console.WriteLine("8. Quit\n");
         }
+        #endregion
+
+        #region PrintAllStudents
+        private static void PrintAllStudents()
+        {
+            Console.WriteLine("\nStudent List <All Students>:");
+            Console.WriteLine("------------------------------------------------------");
+            foreach (Student eachStudent in Students)
+            {
+                Console.WriteLine(eachStudent.ToString());
+            }
+            Console.WriteLine("");
+        }
+        #endregion
+
+        #region PrintStudentsByMajor
+        private static void PrintStudentByMajor()
+        {
+            Console.Write("Which major list would you like printed? ");
+            string major = Console.ReadLine();
+            Console.Write("\nStudent List <{0} Majors>", major);
+            Console.WriteLine("\n------------------------------------------------------");
+            // looking for students in the major
+            List<Student> foundStudent = Students.FindAll(x => x.Major == major);
+            foreach (Student eachStudent in foundStudent)
+            {
+                Console.WriteLine(eachStudent.ToString());
+            }
+            // if not found, print warning message
+            if (foundStudent.Count == 0)
+            {
+                Console.WriteLine("There doesn't appear to be any students majoring in '{0}'.", major);
+            }
+            Console.WriteLine("");
+        }
+        #endregion
+
+        #region PrintStudentByYear
+        private static void PrintStudentByYear()
+        {
+            Console.WriteLine("Which academic year would you like printed?");
+            Console.Write("<Freshman, Sophomore, Junior, Senior, PostBacc> ");
+            string year = Console.ReadLine();
+            // print error if user input is not a type of academic year
+            if (!Enum.IsDefined(typeof(AcademicYear), year))
+            {
+                Console.WriteLine("'{0}' is not an acamedic year.", year);
+            }
+            else
+            {
+                Console.Write("\nStudent List <{0} Majors>", year);
+                Console.WriteLine("\n------------------------------------------------------");
+                AcademicYear year2;
+                // transfer academic year input to string and find in students list
+                Enum.TryParse(year, out year2);
+                List<Student> foundStudent2 = Students.FindAll(x => x.Year == year2);
+                foreach (Student eachStudent in foundStudent2)
+                {
+                    Console.WriteLine(eachStudent.ToString());
+                }
+                if (foundStudent2.Count == 0)
+                {
+                    Console.WriteLine("There doesn't appear to be any students in '{0}' year.", year);
+                }
+            }
+            Console.WriteLine("");
+        }
+        #endregion
+
+        #region PrintAllCourses
+        private static void PrintAllCourses()
+        {
+            Console.WriteLine("\nCourse List <All Courses>:");
+            Console.WriteLine("------------------------------------------------------");
+            foreach (Course eachCourse in Courses)
+            {
+                Console.WriteLine(eachCourse.ToString());
+            }
+            Console.WriteLine("");
+        }
+        #endregion
+
+        #region PrintCourseRoster
+        private static void PrintCourseRoster()
+        {
+            Console.WriteLine("Which course roster would you like printed?");
+            Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
+            string crs = Console.ReadLine();
+            Course foundCourse = null;
+            // print error if the input is not in the required format
+            try
+            {
+                // split input and looking for matching course
+                string[] words = crs.Split(' ');
+                string[] words2 = words[1].Split('-');
+                foundCourse = Courses.Find(x => x.DepartmentCode == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) && x.SectionNumber == words2[1]);
+                // if course not found, print error
+                if (foundCourse != null)
+                {
+                    foundCourse.PrintRoster(Students);
+                }
+                else
+                {
+                    Console.WriteLine("'{0}' does not exist.", crs);
+                }
+                Console.WriteLine("");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("'{0}' doesn't follow required format.", crs);
+            }
+        }
+        #endregion
+
+        #region EnrollStudent
+        private static void EnrollStudent()
+        {
+            Console.Write("Please enter the Z-ID <omitting the Z character> of the student you would like to enroll into a course.");
+            string zid = Console.ReadLine();
+            Student foundStudent4 = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
+            // if student not found, print error
+            if (foundStudent4 == null)
+            {
+                Console.WriteLine("Student {0} not exist.", zid);
+            }
+            else
+            {
+                Console.WriteLine("Which course will this student be enrolled into?");
+                Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
+                string enrollcrs = Console.ReadLine();
+                Course foundCourse2 = null;
+                // checking whether input is in required format
+                try
+                {
+                    // split input and find course matches requirement
+                    string[] words3 = enrollcrs.Split(' ');
+                    string[] words4 = words3[1].Split('-');
+                    foundCourse2 = Courses.Find(x => x.DepartmentCode == words3[0] && x.CourseNumber == Convert.ToUInt64(words4[0]) && x.SectionNumber == words4[1]);
+                    // error if not found course
+                    if (foundCourse2 == null)
+                    {
+                        Console.WriteLine("Course {0} not exist.", enrollcrs);
+                    }
+                    else
+                    {
+                        // check enrollment whether succeed or not
+                        int success = foundStudent4.Enroll(foundCourse2);
+                        if (success == 0)
+                        {
+                            Console.WriteLine("\nz{0} has successfully enrolled into {1}.", zid, enrollcrs);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("'{0}' doesn't follow required format.", enrollcrs);
+                }
+            }
+            Console.WriteLine("");
+        }
+        #endregion
+
+        #region DropCourse
+
+        private static void DropCourse()
+        {
+            Console.Write("Please enter the Z-ID <omitting the Z character> of the student you like to drop from a course.");
+            string zid2 = Console.ReadLine();
+            Student foundStudent5 = Students.Find(x => x.ZId == Convert.ToUInt64(zid2));
+            // print error if student not found
+            if (foundStudent5 == null)
+            {
+                Console.WriteLine("Student {0} not exist.", zid2);
+            }
+            else
+            {
+                Console.WriteLine("Which course will this student be dropped from?");
+                Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
+                string dropcrs = Console.ReadLine();
+                Course foundCourse3 = null;
+                // print error if input is not formatted
+                try
+                {
+                    string[] words5 = dropcrs.Split(' ');
+                    string[] words6 = words5[1].Split('-');
+                    foundCourse3 = Courses.Find(x =>
+                        x.DepartmentCode == words5[0] && x.CourseNumber == Convert.ToUInt64(words6[0]) &&
+                        x.SectionNumber == words6[1]);
+                    // check whether found the course
+                    if (foundCourse3 == null)
+                    {
+                        Console.WriteLine("Course {0} not exist.", dropcrs);
+                    }
+                    else
+                    {
+                        // check if succeed in dropping class
+                        int success2 = foundStudent5.Drop(foundCourse3);
+                        if (success2 == 0)
+                        {
+                            Console.WriteLine("\nz{0} has successfully dropped from {1}.", zid2, dropcrs);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("'{0}' doesn't follow required format.", dropcrs);
+                }
+            }
+            Console.WriteLine("");
+        }
+        #endregion
+        #endregion
     }
 }
