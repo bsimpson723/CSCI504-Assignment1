@@ -174,12 +174,12 @@ namespace Simpson_Assign1
                 AcademicYear year2;
                 // transfer academic year input to string and find in students list
                 Enum.TryParse(year, out year2);
-                List<Student> foundStudent2 = Students.FindAll(x => x.Year == year2);
-                foreach (Student eachStudent in foundStudent2)
+                List<Student> foundStudent = Students.FindAll(x => x.Year == year2);
+                foreach (Student eachStudent in foundStudent)
                 {
                     Console.WriteLine(eachStudent.ToString());
                 }
-                if (foundStudent2.Count == 0)
+                if (foundStudent.Count == 0)
                 {
                     Console.WriteLine("There doesn't appear to be any students in '{0}' year.", year);
                 }
@@ -238,9 +238,9 @@ namespace Simpson_Assign1
         {
             Console.Write("Please enter the Z-ID <omitting the Z character> of the student you would like to enroll into a course. ");
             string zid = Console.ReadLine();
-            Student foundStudent4 = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
+            Student foundStudent = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
             // if student not found, print error
-            if (foundStudent4 == null)
+            if (foundStudent == null)
             {
                 Console.WriteLine("Student {0} does not exist.", zid);
             }
@@ -249,23 +249,23 @@ namespace Simpson_Assign1
                 Console.WriteLine("Which course will this student be enrolled into? ");
                 Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
                 string enrollcrs = Console.ReadLine();
-                Course foundCourse2 = null;
+                Course foundCourse = null;
                 // checking whether input is in required format
                 try
                 {
                     // split input and find course matches requirement
-                    string[] words3 = enrollcrs.Split(' ');
-                    string[] words4 = words3[1].Split('-');
-                    foundCourse2 = Courses.Find(x => x.DepartmentCode == words3[0] && x.CourseNumber == Convert.ToUInt64(words4[0]) && x.SectionNumber == words4[1]);
+                    string[] words = enrollcrs.Split(' ');
+                    string[] words2 = words[1].Split('-');
+                    foundCourse = Courses.Find(x => x.DepartmentCode == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) && x.SectionNumber == words2[1]);
                     // error if not found course
-                    if (foundCourse2 == null)
+                    if (foundCourse == null)
                     {
                         Console.WriteLine("Course {0} does not exist.", enrollcrs);
                     }
                     else
                     {
                         // check enrollment whether succeed or not
-                        int success = foundStudent4.Enroll(foundCourse2);
+                        int success = foundStudent.Enroll(foundCourse);
                         switch (success)
                         {
                             case (0):
@@ -293,14 +293,13 @@ namespace Simpson_Assign1
         #endregion
 
         #region DropCourse
-
         private static void DropCourse()
         {
             Console.Write("Please enter the Z-ID <omitting the Z character> of the student you would like to drop from a course. ");
             string zid = Console.ReadLine();
-            Student foundStudent5 = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
+            Student foundStudent = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
             // print error if student not found
-            if (foundStudent5 == null)
+            if (foundStudent == null)
             {
                 Console.WriteLine("Student {0} not exist.", zid);
             }
@@ -309,24 +308,24 @@ namespace Simpson_Assign1
                 Console.WriteLine("Which course will this student be dropped from?");
                 Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
                 string dropcrs = Console.ReadLine();
-                Course foundCourse3 = null;
+                Course foundCourse = null;
                 // print error if input is not formatted
                 try
                 {
                     string[] words5 = dropcrs.Split(' ');
                     string[] words6 = words5[1].Split('-');
-                    foundCourse3 = Courses.Find(x =>
+                    foundCourse = Courses.Find(x =>
                         x.DepartmentCode == words5[0] && x.CourseNumber == Convert.ToUInt64(words6[0]) &&
                         x.SectionNumber == words6[1]);
                     // check whether found the course
-                    if (foundCourse3 == null)
+                    if (foundCourse == null)
                     {
                         Console.WriteLine("Course {0} does not exist.", dropcrs);
                     }
                     else
                     {
                         // check if succeed in dropping class
-                        int success = foundStudent5.Drop(foundCourse3);
+                        int success = foundStudent.Drop(foundCourse);
                         switch (success)
                         {
                             case (0):
