@@ -100,7 +100,9 @@ namespace Simpson_Assign1
                     var fields = line.Split(',');
                     var course = new Course(fields[0], Convert.ToUInt32(fields[1]), fields[2], Convert.ToUInt16(fields[3]), Convert.ToUInt16(fields[4]));
                     courses.Add(course);
-                    sortedCourses = courses.OrderBy(x => x.CourseNumber).ToList();
+                    sortedCourses = courses.OrderBy(x => x.DepartmentCode)
+                        .ThenBy(x => x.CourseNumber)
+                        .ToList();
                 }
             } catch (Exception)
             {
