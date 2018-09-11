@@ -242,7 +242,7 @@ namespace Simpson_Assign1
             // if student not found, print error
             if (foundStudent4 == null)
             {
-                Console.WriteLine("Student {0} not exist.", zid);
+                Console.WriteLine("Student {0} does not exist.", zid);
             }
             else
             {
@@ -260,7 +260,7 @@ namespace Simpson_Assign1
                     // error if not found course
                     if (foundCourse2 == null)
                     {
-                        Console.WriteLine("Course {0} not exist.", enrollcrs);
+                        Console.WriteLine("Course {0} does not exist.", enrollcrs);
                     }
                     else
                     {
@@ -269,16 +269,16 @@ namespace Simpson_Assign1
                         switch (success)
                         {
                             case (0):
-                                Console.WriteLine("\nz{0} has successfully enrolled into {1}.", zid, enrollcrs);
+                                Console.WriteLine("\nz{0} was successfully enrolled into {1}.", zid, enrollcrs);
                                 break;
                             case (10):
-                                Console.WriteLine("\nError: Student {0} is already enrolled in {1}.", zid, enrollcrs);
+                                Console.WriteLine("\nError: Student z{0} is already enrolled in {1}.", zid, enrollcrs);
                                 break;
                             case (5):
                                 Console.WriteLine("\nError: {0} is already at maximum capacity.", enrollcrs);
                                 break;
                             case (15):
-                                Console.WriteLine("\nError: Student {0} already has a full schedule.", zid);
+                                Console.WriteLine("\nError: Student z{0} already has a full schedule.", zid);
                                 break;
                         }
                     }
@@ -296,13 +296,13 @@ namespace Simpson_Assign1
 
         private static void DropCourse()
         {
-            Console.Write("Please enter the Z-ID <omitting the Z character> of the student you like to drop from a course.");
-            string zid2 = Console.ReadLine();
-            Student foundStudent5 = Students.Find(x => x.ZId == Convert.ToUInt64(zid2));
+            Console.Write("Please enter the Z-ID <omitting the Z character> of the student you would like to drop from a course. ");
+            string zid = Console.ReadLine();
+            Student foundStudent5 = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
             // print error if student not found
             if (foundStudent5 == null)
             {
-                Console.WriteLine("Student {0} not exist.", zid2);
+                Console.WriteLine("Student {0} not exist.", zid);
             }
             else
             {
@@ -321,15 +321,20 @@ namespace Simpson_Assign1
                     // check whether found the course
                     if (foundCourse3 == null)
                     {
-                        Console.WriteLine("Course {0} not exist.", dropcrs);
+                        Console.WriteLine("Course {0} does not exist.", dropcrs);
                     }
                     else
                     {
                         // check if succeed in dropping class
-                        int success2 = foundStudent5.Drop(foundCourse3);
-                        if (success2 == 0)
+                        int success = foundStudent5.Drop(foundCourse3);
+                        switch (success)
                         {
-                            Console.WriteLine("\nz{0} has successfully dropped from {1}.", zid2, dropcrs);
+                            case (0):
+                                Console.WriteLine("\nz{0} was successfully dropped from {1}.", zid, dropcrs);
+                                break;
+                            case (20):
+                                Console.WriteLine("\nError: Student z{0} is not currently enrolled in {1}", zid, dropcrs);
+                                break;
                         }
                     }
                 }
