@@ -205,31 +205,12 @@ namespace Simpson_Assign1
         private static void PrintCourseRoster()
         {
             Console.WriteLine("Which course roster would you like printed?");
-            Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
-            string crs = Console.ReadLine();
-            Course foundCourse = null;
-            // print error if the input is not in the required format
-            try
+            var course = FindCourse();
+            if (course != null)
             {
-                // split input and looking for matching course
-                string[] words = crs.Split(' ');
-                string[] words2 = words[1].Split('-');
-                foundCourse = Courses.Find(x => x.DepartmentCode == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) && x.SectionNumber == words2[1]);
-                // if course not found, print error
-                if (foundCourse != null)
-                {
-                    foundCourse.PrintRoster(Students);
-                }
-                else
-                {
-                    Console.WriteLine("'{0}' does not exist.", crs);
-                }
-                Console.WriteLine("");
+                course.PrintRoster(Students);
             }
-            catch (Exception)
-            {
-                Console.WriteLine("'{0}' doesn't follow required format.", crs);
-            }
+            Console.WriteLine("");
         }
         #endregion
 
@@ -247,45 +228,27 @@ namespace Simpson_Assign1
             else
             {
                 Console.WriteLine("Which course will this student be enrolled into? ");
-                Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
-                string enrollcrs = Console.ReadLine();
-                Course foundCourse = null;
-                // checking whether input is in required format
-                try
+                var course = FindCourse();
+
+                if (course != null)
                 {
-                    // split input and find course matches requirement
-                    string[] words = enrollcrs.Split(' ');
-                    string[] words2 = words[1].Split('-');
-                    foundCourse = Courses.Find(x => x.DepartmentCode == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) && x.SectionNumber == words2[1]);
-                    // error if not found course
-                    if (foundCourse == null)
+                    // check enrollment whether succeed or not
+                    int success = foundStudent.Enroll(course);
+                    switch (success)
                     {
-                        Console.WriteLine("Course {0} does not exist.", enrollcrs);
+                        case (0):
+                            Console.WriteLine("\nz{0} was successfully enrolled into {1} {2}-{3}.", zid, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
+                            break;
+                        case (10):
+                            Console.WriteLine("\nError: Student z{0} is already enrolled in {1} {2}-{3}.", zid, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
+                            break;
+                        case (5):
+                            Console.WriteLine("\nError: {0} {2}-{3} is already at maximum capacity.", course.DepartmentCode, course.CourseNumber, course.SectionNumber);
+                            break;
+                        case (15):
+                            Console.WriteLine("\nError: Student z{0} already has a full schedule.", zid);
+                            break;
                     }
-                    else
-                    {
-                        // check enrollment whether succeed or not
-                        int success = foundStudent.Enroll(foundCourse);
-                        switch (success)
-                        {
-                            case (0):
-                                Console.WriteLine("\nz{0} was successfully enrolled into {1}.", zid, enrollcrs);
-                                break;
-                            case (10):
-                                Console.WriteLine("\nError: Student z{0} is already enrolled in {1}.", zid, enrollcrs);
-                                break;
-                            case (5):
-                                Console.WriteLine("\nError: {0} is already at maximum capacity.", enrollcrs);
-                                break;
-                            case (15):
-                                Console.WriteLine("\nError: Student z{0} already has a full schedule.", zid);
-                                break;
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("'{0}' doesn't follow required format.", enrollcrs);
                 }
             }
             Console.WriteLine("");
@@ -306,43 +269,52 @@ namespace Simpson_Assign1
             else
             {
                 Console.WriteLine("Which course will this student be dropped from?");
-                Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
-                string dropcrs = Console.ReadLine();
-                Course foundCourse = null;
-                // print error if input is not formatted
-                try
+                var course = FindCourse();
+                if (course != null)
                 {
-                    string[] words5 = dropcrs.Split(' ');
-                    string[] words6 = words5[1].Split('-');
-                    foundCourse = Courses.Find(x =>
-                        x.DepartmentCode == words5[0] && x.CourseNumber == Convert.ToUInt64(words6[0]) &&
-                        x.SectionNumber == words6[1]);
-                    // check whether found the course
-                    if (foundCourse == null)
+                    // check if succeed in dropping class
+                    int success = foundStudent.Drop(course);
+                    switch (success)
                     {
-                        Console.WriteLine("Course {0} does not exist.", dropcrs);
+                        case (0):
+                            Console.WriteLine("\nz{0} was successfully dropped from {1} {2}-{3}.", zid, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
+                            break;
+                        case (20):
+                            Console.WriteLine("\nError: Student z{0} is not currently enrolled in {1} {2}-{3}", zid, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
+                            break;
                     }
-                    else
-                    {
-                        // check if succeed in dropping class
-                        int success = foundStudent.Drop(foundCourse);
-                        switch (success)
-                        {
-                            case (0):
-                                Console.WriteLine("\nz{0} was successfully dropped from {1}.", zid, dropcrs);
-                                break;
-                            case (20):
-                                Console.WriteLine("\nError: Student z{0} is not currently enrolled in {1}", zid, dropcrs);
-                                break;
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("'{0}' doesn't follow required format.", dropcrs);
                 }
             }
             Console.WriteLine("");
+        }
+        #endregion
+
+        #region FindCourse
+        private static Course FindCourse()
+        {
+            Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
+            string course = Console.ReadLine();
+            try
+            {
+                string[] words = course.Split(' ');
+                string[] words2 = words[1].Split('-');
+                Course foundCourse = Courses.Find(x =>
+                    x.DepartmentCode == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) &&
+                    x.SectionNumber == words2[1]);
+                // check whether found the course
+                if (foundCourse == null)
+                {
+                    Console.WriteLine("Course {0} does not exist.", course);
+                    return null;
+                }
+                return foundCourse;
+            }
+            catch
+            {
+                //print error if input is not formatted correctly
+                Console.WriteLine("'{0}' doesn't follow required format.", course);
+                return null;
+            }
         }
         #endregion
         #endregion

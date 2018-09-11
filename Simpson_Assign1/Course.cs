@@ -139,7 +139,7 @@ namespace Simpson_Assign1
                 {
                     if (EnrolledStudents.Contains(student.ZId))
                     {
-                        Console.WriteLine(string.Format("{0} {1} {2} {3}", student.ZId, student.LastName, student.FirstName, student.Major));
+                        Console.WriteLine(string.Format("{0} {1}, {2} {3}", student.ZId, student.LastName, student.FirstName, student.Major));
                     }
                 }
             }
