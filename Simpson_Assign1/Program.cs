@@ -163,7 +163,7 @@ namespace Simpson_Assign1
             Console.Write("<Freshman, Sophomore, Junior, Senior, PostBacc> ");
             string year = Console.ReadLine();
             // print error if user input is not a type of academic year
-            if (!Enum.IsDefined(typeof(AcademicYear), year))
+            if (!Enum.GetNames(typeof(AcademicYear)).Any(x => x.ToUpper() == year.ToUpper()))
             {
                 Console.WriteLine("'{0}' is not an acamedic year.", year);
             }
