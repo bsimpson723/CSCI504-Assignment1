@@ -236,7 +236,7 @@ namespace Simpson_Assign1
         #region EnrollStudent
         private static void EnrollStudent()
         {
-            Console.Write("Please enter the Z-ID <omitting the Z character> of the student you would like to enroll into a course.");
+            Console.Write("Please enter the Z-ID <omitting the Z character> of the student you would like to enroll into a course. ");
             string zid = Console.ReadLine();
             Student foundStudent4 = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
             // if student not found, print error
@@ -246,7 +246,7 @@ namespace Simpson_Assign1
             }
             else
             {
-                Console.WriteLine("Which course will this student be enrolled into?");
+                Console.WriteLine("Which course will this student be enrolled into? ");
                 Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
                 string enrollcrs = Console.ReadLine();
                 Course foundCourse2 = null;
@@ -266,9 +266,20 @@ namespace Simpson_Assign1
                     {
                         // check enrollment whether succeed or not
                         int success = foundStudent4.Enroll(foundCourse2);
-                        if (success == 0)
+                        switch (success)
                         {
-                            Console.WriteLine("\nz{0} has successfully enrolled into {1}.", zid, enrollcrs);
+                            case (0):
+                                Console.WriteLine("\nz{0} has successfully enrolled into {1}.", zid, enrollcrs);
+                                break;
+                            case (10):
+                                Console.WriteLine("\nError: Student {0} is already enrolled in {1}.", zid, enrollcrs);
+                                break;
+                            case (5):
+                                Console.WriteLine("\nError: {0} is already at maximum capacity.", enrollcrs);
+                                break;
+                            case (15):
+                                Console.WriteLine("\nError: Student {0} already has a full schedule.", zid);
+                                break;
                         }
                     }
                 }
