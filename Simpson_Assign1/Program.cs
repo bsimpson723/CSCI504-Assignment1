@@ -314,15 +314,23 @@ namespace Simpson_Assign1
 
         public static Student FindStudent()
         {
+            var foundStudent = new Student();
             string zid = Console.ReadLine();
-            Student foundStudent = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
-            // if student not found, print error
-            if (foundStudent == null)
+            try
             {
-                Console.WriteLine("Student {0} does not exist.", zid);
+                foundStudent = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
+                // if student not found, print error
+                if (foundStudent == null)
+                {
+                    Console.WriteLine("Student {0} does not exist.", zid);
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("{0} is not a valid integer", zid);
                 return null;
             }
-
             return foundStudent;
         }
 
