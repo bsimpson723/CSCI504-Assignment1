@@ -52,7 +52,7 @@ namespace Simpson_Assign1
                             Console.WriteLine(eachStudent.ToString());
                         }
                         // if not found, print warning message
-                        if (foundStudent.Capacity == 0)
+                        if (foundStudent.Count == 0)
                         {
                             Console.WriteLine("There doesn't appear to be any students majoring in '{0}'.", major);
                         }
@@ -78,7 +78,7 @@ namespace Simpson_Assign1
                             {
                                 Console.WriteLine(eachStudent.ToString());
                             }
-                            if (foundStudent2.Capacity == 0)
+                            if (foundStudent2.Count == 0)
                             {
                                 Console.WriteLine("There doesn't appear to be any students in '{0}' year.", year);
                             }
