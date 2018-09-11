@@ -218,14 +218,8 @@ namespace Simpson_Assign1
         private static void EnrollStudent()
         {
             Console.Write("Please enter the Z-ID <omitting the Z character> of the student you would like to enroll into a course. ");
-            string zid = Console.ReadLine();
-            Student foundStudent = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
-            // if student not found, print error
-            if (foundStudent == null)
-            {
-                Console.WriteLine("Student {0} does not exist.", zid);
-            }
-            else
+            var student = FindStudent();
+            if (student != null)
             {
                 Console.WriteLine("Which course will this student be enrolled into? ");
                 var course = FindCourse();
@@ -233,20 +227,20 @@ namespace Simpson_Assign1
                 if (course != null)
                 {
                     // check enrollment whether succeed or not
-                    int success = foundStudent.Enroll(course);
+                    int success = student.Enroll(course);
                     switch (success)
                     {
                         case (0):
-                            Console.WriteLine("\nz{0} was successfully enrolled into {1} {2}-{3}.", zid, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
+                            Console.WriteLine("\nz{0} was successfully enrolled into {1} {2}-{3}.", student.ZId, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
                             break;
                         case (10):
-                            Console.WriteLine("\nError: Student z{0} is already enrolled in {1} {2}-{3}.", zid, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
+                            Console.WriteLine("\nError: Student z{0} is already enrolled in {1} {2}-{3}.", student.ZId, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
                             break;
                         case (5):
                             Console.WriteLine("\nError: {0} {2}-{3} is already at maximum capacity.", course.DepartmentCode, course.CourseNumber, course.SectionNumber);
                             break;
                         case (15):
-                            Console.WriteLine("\nError: Student z{0} already has a full schedule.", zid);
+                            Console.WriteLine("\nError: Student z{0} already has a full schedule.", student.ZId);
                             break;
                     }
                 }
@@ -259,28 +253,22 @@ namespace Simpson_Assign1
         private static void DropCourse()
         {
             Console.Write("Please enter the Z-ID <omitting the Z character> of the student you would like to drop from a course. ");
-            string zid = Console.ReadLine();
-            Student foundStudent = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
-            // print error if student not found
-            if (foundStudent == null)
-            {
-                Console.WriteLine("Student {0} not exist.", zid);
-            }
-            else
+            var student = FindStudent();
+            if (student != null)
             {
                 Console.WriteLine("Which course will this student be dropped from?");
                 var course = FindCourse();
                 if (course != null)
                 {
                     // check if succeed in dropping class
-                    int success = foundStudent.Drop(course);
+                    int success = student.Drop(course);
                     switch (success)
                     {
                         case (0):
-                            Console.WriteLine("\nz{0} was successfully dropped from {1} {2}-{3}.", zid, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
+                            Console.WriteLine("\nz{0} was successfully dropped from {1} {2}-{3}.", student.ZId, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
                             break;
                         case (20):
-                            Console.WriteLine("\nError: Student z{0} is not currently enrolled in {1} {2}-{3}", zid, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
+                            Console.WriteLine("\nError: Student z{0} is not currently enrolled in {1} {2}-{3}", student.ZId, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
                             break;
                     }
                 }
@@ -316,6 +304,24 @@ namespace Simpson_Assign1
                 return null;
             }
         }
+        #endregion
+
+        #region FindStudent
+
+        public static Student FindStudent()
+        {
+            string zid = Console.ReadLine();
+            Student foundStudent = Students.Find(x => x.ZId == Convert.ToUInt64(zid));
+            // if student not found, print error
+            if (foundStudent == null)
+            {
+                Console.WriteLine("Student {0} does not exist.", zid);
+                return null;
+            }
+
+            return foundStudent;
+        }
+
         #endregion
         #endregion
     }
