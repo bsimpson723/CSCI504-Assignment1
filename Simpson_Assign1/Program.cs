@@ -64,46 +64,50 @@ namespace Simpson_Assign1
         #region InitializeStudents
         private static List<Student> InitializeStudents()
         {
-            var students = new List<Student>();
+            var sortedStudents = new List<Student>();
             // check opening file successfully
             try
             {
+                var students = new List<Student>();
                 var file = File.ReadAllLines("Students.txt");
                 foreach (var line in file)
                 {
                     var fields = line.Split(',');
                     var student = new Student(Convert.ToUInt32(fields[0]), fields[1], fields[2], fields[3], Convert.ToInt32(fields[4]), float.Parse(fields[5]));
                     students.Add(student);
+                    sortedStudents = students.OrderBy(x => x.ZId).ToList();
                 }
             } catch (Exception)
             {
                 Console.WriteLine("Can't read Students.txt file.");
+                return null;
             }
-
-            return students;
+            return sortedStudents;
         }
         #endregion
 
         #region InitializeCourses
         private static List<Course> InitializeCourses()
         {
-            var courses = new List<Course>();
+            var sortedCourses = new List<Course>();
             // check opening file successfully
             try
             {
+                var courses = new List<Course>();
                 var file = File.ReadAllLines("Courses.txt");
                 foreach (var line in file)
                 {
                     var fields = line.Split(',');
                     var course = new Course(fields[0], Convert.ToUInt32(fields[1]), fields[2], Convert.ToUInt16(fields[3]), Convert.ToUInt16(fields[4]));
                     courses.Add(course);
+                    sortedCourses = courses.OrderBy(x => x.CourseNumber).ToList();
                 }
             } catch (Exception)
             {
                 Console.WriteLine("Can't read Courses.txt file.");
             }
 
-            return courses;
+            return sortedCourses;
         }
         #endregion
 
