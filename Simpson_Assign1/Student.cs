@@ -129,7 +129,7 @@ namespace Simpson_Assign1
 
         public override string ToString()
         {
-            return string.Format("z{0} -- {1}, {2} [{3}] ({4}) |{5}|", ZId, LastName, FirstName, Year, Major, Gpa);
+            return string.Format("z{0} -- {1,12}, {2,-10} [{3,9}] ({4,17}) | {5:0.000} | ", ZId, LastName, FirstName, Year, Major, Gpa);
         }
         #endregion
     }
