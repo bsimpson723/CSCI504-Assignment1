@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Simpson_Assign1
 {
-    public class Course
+    public class Course : IComparable<Course>
     {
         #region Properties
         private string departmentCode;
@@ -127,7 +127,7 @@ namespace Simpson_Assign1
         #region Methods
         public void PrintRoster(List<Student> students)
         {
-            Console.WriteLine(string.Format("Course: {0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity));
+            Console.WriteLine("Course: {0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity);
             Console.WriteLine("-------------------------------------------------------------------");
             if (!EnrolledStudents.Any())
             {
@@ -139,7 +139,7 @@ namespace Simpson_Assign1
                 {
                     if (EnrolledStudents.Contains(student.ZId))
                     {
-                        Console.WriteLine(string.Format("{0} {1}, {2} {3}", student.ZId, student.LastName, student.FirstName, student.Major));
+                        Console.WriteLine("{0} {1}, {2} {3}", student.ZId, student.LastName, student.FirstName, student.Major);
                     }
                 }
             }
@@ -148,6 +148,35 @@ namespace Simpson_Assign1
         public override string ToString()
         {
             return string.Format("{0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity);
+        }
+
+        public int CompareTo(Course course)
+        {
+            if (course == null)
+            {
+                return 1;
+            }
+
+            //if argument DepartmentCode is lower it should come out first
+            if (string.Compare(DepartmentCode, course.DepartmentCode) < 0)
+            {
+                return -1;
+            }
+
+            //if argument Department code is equal, but the courseNumber is loweer, it should still come out first
+            if (DepartmentCode == course.DepartmentCode && CourseNumber > course.CourseNumber)
+            {
+                return -1;
+            }
+
+            //if both fields are equal they will come out equal
+            if (DepartmentCode == course.DepartmentCode && CourseNumber == course.CourseNumber)
+            {
+                return 0;
+            }
+
+            //every other case is going to return 1
+            return 1;
         }
         #endregion
     }
