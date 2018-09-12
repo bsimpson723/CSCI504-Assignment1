@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CA5227EC-A4C8-4287-B4C0-0F7C35592E3D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Simpson_Assign1</RootNamespace>
-    <AssemblyName>Simpson_Assign1</AssemblyName>
+    <RootNamespace>Assignment1</RootNamespace>
+    <AssemblyName>Assignment1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
