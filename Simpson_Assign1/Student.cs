@@ -14,14 +14,14 @@ using System.Threading.Tasks;
 namespace Simpson_Assign1
 {
     public enum AcademicYear { Freshman, Sophomore, Junior, Senior, PostBacc }
-    public class Student
+    public class Student : IComparable<Student>
     {
         #region Properties
         private float? gpa;
         private ushort? creditHours;
 
-        //using auto-properties for all properties that don't require custom logic
-        public uint ZId { get; }    //get only so that this field can only be set once via the constructor
+        //using auto-properties for all properties that don't require custom logic setter logic
+        public uint? ZId { get; }    //get only so that this field can only be set once via the constructor
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Major{ get; set; }
@@ -81,10 +81,7 @@ namespace Simpson_Assign1
             FirstName = firstName;
             Major = major;
             Year = (AcademicYear)year;
-            if (gpa >= 0 && gpa <= 4.00)
-            {
-                Gpa = gpa;
-            }
+            Gpa = gpa;
             CreditHours = 0;
         }
         #endregion
@@ -129,7 +126,28 @@ namespace Simpson_Assign1
 
         public override string ToString()
         {
-            return string.Format("z{0} -- {1}, {2} [{3}] ({4}) |{5}|", ZId, LastName, FirstName, Year, Major, Gpa);
+            return string.Format("z{0} -- {1,12}, {2,-10} [{3,9}] ({4,17}) | {5:0.000} | ", ZId, LastName, FirstName, Year, Major, Gpa);
+        }
+
+        public int CompareTo(Student student)
+        {
+            if (student == null)
+            {
+                return 1;
+            }
+            
+            //if argument zid is lower it should come out first
+            if (ZId > student.ZId)
+            {
+                return -1;
+            }
+            //if zids are equal it doesn't matter which order they come out in (hopefully the IDs are unique though)
+            if (ZId == student.ZId)
+            {
+                return 0;
+            }
+            //otherwise the instance object will come out first
+            return 1;
         }
         #endregion
     }
