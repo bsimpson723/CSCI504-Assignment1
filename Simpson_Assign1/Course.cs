@@ -73,7 +73,7 @@ namespace Simpson_Assign1
             }
             set
             {
-                if (value <= 0 && value <= 6)
+                if (value >= 0 && value <= 6)
                 {
                     creditHours = value;
                 }
@@ -81,7 +81,7 @@ namespace Simpson_Assign1
         }
 
         //using auto-properties for all properties that don't require custom logic
-        public List<uint> EnrolledStudents { get; set; }
+        public List<uint?> EnrolledStudents { get; set; }
         public ushort? EnrolledCount => Convert.ToUInt16(EnrolledStudents.Count());
         public ushort? MaximumCapacity { get; set; }
         #endregion
@@ -93,33 +93,17 @@ namespace Simpson_Assign1
             CourseNumber = null;
             SectionNumber = string.Empty;
             CreditHours = null;
-            EnrolledStudents = new List<uint>();
+            EnrolledStudents = new List<uint?>();
             MaximumCapacity = null;
         }
 
         public Course(string deptCode, uint courseNum, string sectNumber, ushort hours, ushort capacity)
         {
-            if (deptCode.Length <= 4 && deptCode.Length > 0)
-            {
-                DepartmentCode = deptCode.ToUpper();
-            }
-
-            if (courseNum >= 100 && courseNum <= 499)
-            {
-                CourseNumber = courseNum;
-            }
-
-            if (sectNumber.Length == 4)
-            {
-                SectionNumber = sectNumber;
-            }
-
-            if (hours >= 0 && hours <= 6)
-            {
-                CreditHours = hours;
-            }
-
-            EnrolledStudents = new List<uint>();
+            DepartmentCode = deptCode.ToUpper();
+            CourseNumber = courseNum;
+            SectionNumber = sectNumber;
+            CreditHours = hours;
+            EnrolledStudents = new List<uint?>();
             MaximumCapacity = capacity;
         }
         #endregion
@@ -127,7 +111,7 @@ namespace Simpson_Assign1
         #region Methods
         public void PrintRoster(List<Student> students)
         {
-            Console.WriteLine("Course: {0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity);
+            Console.WriteLine("\nCourse: {0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity);
             Console.WriteLine("-------------------------------------------------------------------");
             if (!EnrolledStudents.Any())
             {

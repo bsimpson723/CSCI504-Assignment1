@@ -20,8 +20,8 @@ namespace Simpson_Assign1
         private float? gpa;
         private ushort? creditHours;
 
-        //using auto-properties for all properties that don't require custom logic
-        public uint ZId { get; }    //get only so that this field can only be set once via the constructor
+        //using auto-properties for all properties that don't require custom logic setter logic
+        public uint? ZId { get; }    //get only so that this field can only be set once via the constructor
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Major{ get; set; }
@@ -81,10 +81,7 @@ namespace Simpson_Assign1
             FirstName = firstName;
             Major = major;
             Year = (AcademicYear)year;
-            if (gpa >= 0 && gpa <= 4.00)
-            {
-                Gpa = gpa;
-            }
+            Gpa = gpa;
             CreditHours = 0;
         }
         #endregion

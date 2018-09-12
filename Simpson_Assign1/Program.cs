@@ -136,7 +136,6 @@ namespace Simpson_Assign1
             {
                 Console.WriteLine(eachStudent.ToString());
             }
-            Console.WriteLine("");
         }
         #endregion
 
@@ -148,7 +147,7 @@ namespace Simpson_Assign1
             Console.Write("\nStudent List <{0} Majors>", major);
             Console.WriteLine("\n------------------------------------------------------");
             // looking for students in the major
-            List<Student> foundStudent = Students.FindAll(x => x.Major == major);
+            List<Student> foundStudent = Students.FindAll(x => x.Major.ToUpper() == major.ToUpper());
             foreach (Student eachStudent in foundStudent)
             {
                 Console.WriteLine(eachStudent.ToString());
@@ -158,7 +157,6 @@ namespace Simpson_Assign1
             {
                 Console.WriteLine("There doesn't appear to be any students majoring in '{0}'.", major);
             }
-            Console.WriteLine("");
         }
         #endregion
 
@@ -171,7 +169,7 @@ namespace Simpson_Assign1
             // print error if user input is not a type of academic year
             if (!Enum.GetNames(typeof(AcademicYear)).Any(x => x.ToUpper() == year.ToUpper()))
             {
-                Console.WriteLine("'{0}' is not an acamedic year.", year);
+                Console.WriteLine("\n'{0}' is not an acamedic year.", year);
             }
             else
             {
@@ -190,7 +188,6 @@ namespace Simpson_Assign1
                     Console.WriteLine("There doesn't appear to be any students in '{0}' year.", year);
                 }
             }
-            Console.WriteLine("");
         }
         #endregion
 
@@ -203,7 +200,6 @@ namespace Simpson_Assign1
             {
                 Console.WriteLine(eachCourse.ToString());
             }
-            Console.WriteLine("");
         }
         #endregion
 
@@ -216,7 +212,6 @@ namespace Simpson_Assign1
             {
                 course.PrintRoster(Students);
             }
-            Console.WriteLine("");
         }
         #endregion
 
@@ -227,7 +222,7 @@ namespace Simpson_Assign1
             var student = FindStudent();
             if (student != null)
             {
-                Console.WriteLine("Which course will this student be enrolled into? ");
+                Console.WriteLine("\nWhich course will this student be enrolled into? ");
                 var course = FindCourse();
 
                 if (course != null)
@@ -239,11 +234,11 @@ namespace Simpson_Assign1
                         case (0):
                             Console.WriteLine("\nz{0} was successfully enrolled into {1} {2}-{3}.", student.ZId, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
                             break;
+                        case (5):
+                            Console.WriteLine("\nError: {0} {1}-{2} is already at maximum capacity.", course.DepartmentCode, course.CourseNumber, course.SectionNumber);
+                            break;
                         case (10):
                             Console.WriteLine("\nError: Student z{0} is already enrolled in {1} {2}-{3}.", student.ZId, course.DepartmentCode, course.CourseNumber, course.SectionNumber);
-                            break;
-                        case (5):
-                            Console.WriteLine("\nError: {0} {2}-{3} is already at maximum capacity.", course.DepartmentCode, course.CourseNumber, course.SectionNumber);
                             break;
                         case (15):
                             Console.WriteLine("\nError: Student z{0} already has a full schedule.", student.ZId);
@@ -251,7 +246,6 @@ namespace Simpson_Assign1
                     }
                 }
             }
-            Console.WriteLine("");
         }
         #endregion
 
@@ -262,7 +256,7 @@ namespace Simpson_Assign1
             var student = FindStudent();
             if (student != null)
             {
-                Console.WriteLine("Which course will this student be dropped from?");
+                Console.WriteLine("\nWhich course will this student be dropped from?");
                 var course = FindCourse();
                 if (course != null)
                 {
@@ -279,7 +273,6 @@ namespace Simpson_Assign1
                     }
                 }
             }
-            Console.WriteLine("");
         }
         #endregion
 
@@ -298,7 +291,7 @@ namespace Simpson_Assign1
                 // check whether found the course
                 if (foundCourse == null)
                 {
-                    Console.WriteLine("Course {0} does not exist.", course);
+                    Console.WriteLine("\nCourse {0} does not exist.", course);
                     return null;
                 }
                 return foundCourse;
@@ -306,7 +299,7 @@ namespace Simpson_Assign1
             catch
             {
                 //print error if input is not formatted correctly
-                Console.WriteLine("'{0}' doesn't follow required format.", course);
+                Console.WriteLine("\n'{0}' doesn't follow required format.", course);
                 return null;
             }
         }
@@ -324,13 +317,13 @@ namespace Simpson_Assign1
                 // if student not found, print error
                 if (foundStudent == null)
                 {
-                    Console.WriteLine("Student {0} does not exist.", zid);
+                    Console.WriteLine("\nStudent {0} does not exist.", zid);
                     return null;
                 }
             }
             catch (Exception)
             {
-                Console.WriteLine("{0} is not a valid integer", zid);
+                Console.WriteLine("\n{0} is not a valid integer", zid);
                 return null;
             }
             return foundStudent;
