@@ -62,6 +62,7 @@ namespace Simpson_Assign1
         #region PrivateMethods
 
         #region InitializeStudents
+        //loads a list of student objects from the input file ordered by zID
         private static List<Student> InitializeStudents()
         {
             var sortedStudents = new List<Student>();
@@ -87,6 +88,7 @@ namespace Simpson_Assign1
         #endregion
 
         #region InitializeCourses
+        //loads a list of course objects from the input file ordered by department code then course number
         private static List<Course> InitializeCourses()
         {
             var sortedCourses = new List<Course>();
@@ -114,6 +116,7 @@ namespace Simpson_Assign1
         #endregion
 
         #region PrintMenu
+        //prints the menu options
         private static void PrintMenu()
         {
             Console.WriteLine("1. Print Student List (All)");
@@ -128,6 +131,7 @@ namespace Simpson_Assign1
         #endregion
 
         #region PrintAllStudents
+        //prints all students ordered by zID
         private static void PrintAllStudents()
         {
             Console.WriteLine("\nStudent List <All Students>:");
@@ -140,6 +144,7 @@ namespace Simpson_Assign1
         #endregion
 
         #region PrintStudentsByMajor
+        //prints all students with a specified major in order of zID
         private static void PrintStudentByMajor()
         {
             Console.Write("Which major list would you like printed? ");
@@ -161,6 +166,7 @@ namespace Simpson_Assign1
         #endregion
 
         #region PrintStudentByYear
+        //prints all students in a certain academic year in order of zID
         private static void PrintStudentByYear()
         {
             Console.WriteLine("Which academic year would you like printed?");
@@ -192,6 +198,7 @@ namespace Simpson_Assign1
         #endregion
 
         #region PrintAllCourses
+        //prints all courses in order by department code then by course number
         private static void PrintAllCourses()
         {
             Console.WriteLine("\nCourse List <All Courses>:");
@@ -204,6 +211,7 @@ namespace Simpson_Assign1
         #endregion
 
         #region PrintCourseRoster
+        //prompts user to enter course they would like to see the roster of and calls Course.PrintRoster() method
         private static void PrintCourseRoster()
         {
             Console.WriteLine("Which course roster would you like printed?");
@@ -216,6 +224,11 @@ namespace Simpson_Assign1
         #endregion
 
         #region EnrollStudent
+        //calls Student.Enroll method and prints output based on response
+        //0 = successfully enrolled
+        //5 = course is at maximum capacity
+        //10 = student is already enrolled
+        //15 = student doesn't have room on his/her schedule.
         private static void EnrollStudent()
         {
             Console.Write("Please enter the Z-ID <omitting the Z character> of the student you would like to enroll into a course. ");
@@ -250,6 +263,9 @@ namespace Simpson_Assign1
         #endregion
 
         #region DropCourse
+        //calls Student.Drop and prints output based on response
+        //0 = student was successfully dropped from the course
+        //20 = student is not currently enrolled in the course
         private static void DropCourse()
         {
             Console.Write("Please enter the Z-ID <omitting the Z character> of the student you would like to drop from a course. ");
@@ -277,6 +293,9 @@ namespace Simpson_Assign1
         #endregion
 
         #region FindCourse
+        //prompts user to enter department number and section of course
+        //returns course if foundd
+        //if input is invalid or course is not found it prints error and returns null
         private static Course FindCourse()
         {
             Console.Write("<DEPT COURSE_NUM-SECTION_NUM> ");
@@ -286,8 +305,8 @@ namespace Simpson_Assign1
                 string[] words = course.Split(' ');
                 string[] words2 = words[1].Split('-');
                 Course foundCourse = Courses.Find(x =>
-                    x.DepartmentCode == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) &&
-                    x.SectionNumber == words2[1]);
+                    x.DepartmentCode.ToUpper() == words[0].ToUpper() && x.CourseNumber == Convert.ToUInt64(words2[0]) &&
+                    x.SectionNumber.ToUpper() == words2[1].ToUpper());
                 // check whether found the course
                 if (foundCourse == null)
                 {
@@ -306,7 +325,9 @@ namespace Simpson_Assign1
         #endregion
 
         #region FindStudent
-
+        //prompts user to enter student zID number (without the z)
+        //returns student if foundd
+        //if input is invalid or student is not found it prints error and returns null
         public static Student FindStudent()
         {
             var foundStudent = new Student();
