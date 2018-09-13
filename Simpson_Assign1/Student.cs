@@ -92,6 +92,10 @@ namespace Simpson_Assign1
         //returns 5, 10 or 15 if the student cannot be enrolled (depending on the reason)
         public int Enroll(Course course)
         {
+            if (course == null)
+            {
+                throw new ArgumentNullException("Course cannot be null.");
+            }
             //Check conditions and return error code if any are true
             if (course.EnrolledStudents.Contains(ZId))
             {
@@ -118,6 +122,10 @@ namespace Simpson_Assign1
         //returns 20 if the student cannot be removed from the roster
         public int Drop(Course course)
         {
+            if (course == null)
+            {
+                throw new ArgumentNullException("Course cannot be null.");
+            }
             //if the student isn't enrolled in the course return error code 20
             if (!course.EnrolledStudents.Contains(ZId))
             {
