@@ -109,6 +109,8 @@ namespace Simpson_Assign1
         #endregion
 
         #region Methods
+        //Takes in all students and checks if they are on the roster of the instance object
+        //if the ZID is found int the roster it will print the student using the .ToString() override.
         public void PrintRoster(List<Student> students)
         {
             Console.WriteLine("\nCourse: {0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity);
@@ -129,6 +131,7 @@ namespace Simpson_Assign1
             }
         }
 
+        //Course override of the ToString Method
         public override string ToString()
         {
             return string.Format("{0} {1}-{2} ({3}/{4})", DepartmentCode, CourseNumber, SectionNumber, EnrolledCount, MaximumCapacity);

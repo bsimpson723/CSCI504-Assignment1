@@ -87,6 +87,9 @@ namespace Simpson_Assign1
         #endregion
 
         #region Methods
+        //Takes in a course and adds the Instance student to the roster if possible
+        //returns 0 if successful
+        //returns 5, 10 or 15 if the student cannot be enrolled (depending on the reason)
         public int Enroll(Course course)
         {
             //Check conditions and return error code if any are true
@@ -110,6 +113,9 @@ namespace Simpson_Assign1
             return 0;
         }
 
+        //Takes in a course and removes the Instance student from the roster if possible
+        //returns 0 if successful
+        //returns 20 if the student cannot be removed from the roster
         public int Drop(Course course)
         {
             //if the student isn't enrolled in the course return error code 20
@@ -124,6 +130,7 @@ namespace Simpson_Assign1
             return 0;
         }
 
+        //Student override of the ToString() Method
         public override string ToString()
         {
             return string.Format("z{0} -- {1,12}, {2,-10} [{3,9}] ({4,17}) | {5:0.000} | ", ZId, LastName, FirstName, Year, Major, Gpa);
