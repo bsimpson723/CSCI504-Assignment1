@@ -182,7 +182,7 @@ namespace Simpson_Assign1
                 Console.Write("\nStudent List <{0} Majors>", year);
                 Console.WriteLine("\n------------------------------------------------------");
                 // transfer academic year input to string and find in students list
-                var year2 = (AcademicYear)Enum.Parse(typeof(AcademicYear), year, true);
+                var year2 = (AcademicYear)Enum.Parse(typeof(AcademicYear), year, true); //third parameter in the parse method is to ignore the case
                 List<Student> foundStudent = Students.FindAll(x => x.Year == year2);
                 foreach (Student eachStudent in foundStudent)
                 {
