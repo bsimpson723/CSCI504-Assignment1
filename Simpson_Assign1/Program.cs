@@ -286,8 +286,8 @@ namespace Simpson_Assign1
                 string[] words = course.Split(' ');
                 string[] words2 = words[1].Split('-');
                 Course foundCourse = Courses.Find(x =>
-                    x.DepartmentCode == words[0] && x.CourseNumber == Convert.ToUInt64(words2[0]) &&
-                    x.SectionNumber == words2[1]);
+                    x.DepartmentCode.ToUpper() == words[0].ToUpper() && x.CourseNumber == Convert.ToUInt64(words2[0]) &&
+                    x.SectionNumber.ToUpper() == words2[1].ToUpper());
                 // check whether found the course
                 if (foundCourse == null)
                 {
